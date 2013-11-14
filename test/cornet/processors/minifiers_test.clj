@@ -13,12 +13,13 @@
 
 (deftest dev-yui-css-test
   (let [processor (wrap-yui-css-compressor test-file-loader :mode :dev)]
+    (-> "example.css" test-file-loader io/as-file (.setLastModified (-(System/currentTimeMillis) 3000 )))
     (let [res (processor "example.css")
           res2 (processor "example.css")]
       (is (= res res2))
       (is (.endsWith (str res) ".css"))
       (is (= (slurp res) (slurp (test-file-loader "output.css"))))
-      (-> "example.css" test-file-loader io/as-file (.setLastModified (+ 1000 (System/currentTimeMillis))))
+      (-> "example.css" test-file-loader io/as-file (.setLastModified (+ 3000 (System/currentTimeMillis))))
       
       (let [res3 (processor "example.css")]
         (is (not= res res3))
@@ -33,12 +34,13 @@
 
 (deftest prod-yui-css-test
   (let [processor (wrap-yui-css-compressor test-file-loader :mode :prod)]
+    (-> "example.css" test-file-loader io/as-file (.setLastModified (-(System/currentTimeMillis) 3000 )))
     (let [res (processor "example.css")
           res2 (processor "example.css")]
       (is (= res res2))
       (is (.endsWith (str res) ".css"))
       (is (= (slurp res) (slurp (test-file-loader "output.css"))))
-      (-> "example.css" test-file-loader io/as-file (.setLastModified (+ 1000 (System/currentTimeMillis))))
+      (-> "example.css" test-file-loader io/as-file (.setLastModified (+ 3000 (System/currentTimeMillis))))
       
       (let [res3 (processor "example.css")]
         (is (= res res3))

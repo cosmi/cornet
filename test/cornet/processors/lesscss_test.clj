@@ -9,7 +9,6 @@
          resp# (do ~@body)
          dt# (- (System/currentTimeMillis) time#)]
      (is (-> dt# ~time))
-     (println "Time:" dt#)
      resp#
      ))
 

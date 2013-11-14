@@ -20,8 +20,11 @@
                            (fn [ctx scope this [arg]]
                              (let [arg (str arg)]
                                (swap! deps conj arg)
-                               (slurp (resource-fetcher arg))
-                               ))))
+                               (let [res (resource-fetcher arg)]
+                                 (if res
+                                   (slurp res)
+                                   )
+                               )))))
       (js/set! "writeFile" (js/make-fn
                            (fn [ctx scope this [filename output]]
                              (let [filename (str filename)

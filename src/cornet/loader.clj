@@ -13,3 +13,9 @@
     ))
 
 
+(defn file-loader [root]
+  (fn [path]
+    (let [file (io/as-file (str root "/" path))]
+      (when (.isFile file)
+        (io/as-url file)))
+    ))
