@@ -13,20 +13,3 @@
     ))
 
 
-
-(defn wrap-processor [loader processor]
-  (fn [path]
-    (when-let [resource (loader path)]
-      (let [to (create-temp-file path)]
-        (processor resource to)))))
-
-
-
-(defn wrap-loader-cache [loader & [cache-factory]]
-  (let [cache (atom ((or cache-factory lu-cache-factory) {}))]
-    (fn [path]
-      (let [resp (cache/lookup 
-    
-
-      )))
-

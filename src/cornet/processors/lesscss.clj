@@ -1,4 +1,4 @@
-(ns cornet.compilers.lesscss
+(ns cornet.processors.lesscss
   (:require [clj-rhino :as js])
   (:require [clojure.java.io :as io])
   (:use [cornet utils mode wrappers]))
@@ -59,7 +59,7 @@
 
 
 
-(defn dev-lesscss-processor [loader & {:keys [version output-ext change-ext] :or {version "1.3.3" output-ext ".css" change-ext true}}]
+(defn dev-wrap-lesscss-processor [loader & {:keys [version output-ext change-ext] :or {version "1.3.3" output-ext ".css" change-ext true}}]
   (let [state (atom {})
         script (try (get-lesscss-script version)
                     (catch Exception e (throw (Exception. (str "Cannot load lesscss script, version " version)))))]
@@ -98,7 +98,7 @@
      change-ext (wrap-change-extension ".css" ".less"))))
 
 
-(defn prod-lesscss-processor [loader & {:keys [version output-ext change-ext] :or {version "1.3.3" output-ext ".css" change-ext true}}]
+(defn prod-wrap-lesscss-processor [loader & {:keys [version output-ext change-ext] :or {version "1.3.3" output-ext ".css" change-ext true}}]
   (let [state (atom {})
         script (try (get-lesscss-script version)
                     (catch Exception e (throw (Exception. (str "Cannot load lesscss script, version " version)))))]
@@ -128,10 +128,10 @@
 
 
 
-(defn lesscss-processor [loader & {:keys [mode] :or {mode (get-cornet-mode)} :as opts}]
+(defn wrap-lesscss-processor [loader & {:keys [mode] :or {mode (get-cornet-mode)} :as opts}]
   (apply
    (case mode
-         :dev dev-lesscss-processor
-         :prod prod-lesscss-processor)
+         :dev dev-wrap-lesscss-processor
+         :prod prod-wrap-lesscss-processor)
    loader
    (apply concat opts)))

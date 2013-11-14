@@ -6,15 +6,19 @@
 
 (defn get-path-timestamp
   [path]
-  (when-let [resource (io/resource path)]
-    (when (-> resource .getProtocol (= "file"))
-      (-> resource io/as-file .lastModified))))
+  (or 
+   (when-let [resource (io/resource path)]
+     (when (-> resource .getProtocol (= "file"))
+       (-> resource io/as-file .lastModified)))
+   0))
 
 (defn get-url-timestamp [url]
-  (when (-> url .getProtocol (= "file"))
-    (let [file (io/as-file url)]
-      (when (.exists file)
-        (.lastModified file)))))
+  (or 
+   (when (-> url .getProtocol (= "file"))
+     (let [file (io/as-file url)]
+       (when (.exists file)
+         (.lastModified file))))
+   0))
 
 (defn url-deleted? [url]
   (when (-> url .getProtocol (= "file"))
