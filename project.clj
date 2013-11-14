@@ -30,7 +30,7 @@
                    [org.webjars/handlebars]
                    [org.webjars/jshint]
                                         ;[org.webjars/jslint ]
-                   [org.webjars/json2 ]
+                                        ;[org.webjars/json2 ] - required for uglify-js
                    [org.webjars/less ]
                                         ;[org.webjars/webjars-locator ]
                                         ;[ro.isdc.wro4j/rhino]

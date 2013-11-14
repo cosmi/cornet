@@ -19,10 +19,10 @@
 
 
 
-(defn wrap-yui-css-compressor [fun & opts]
-  (apply wrap-processor fun yui-css-compressor (apply concat opts)))
+(defn wrap-yui-css-compressor [fun & {:as opts}]
+  (apply wrap-processor fun (yui-css-compressor) (apply concat opts)))
 
-(defn wrap-uglify-js-compressor [fun & opts]
-  (apply wrap-processor fun uglify-js-compressor (apply concat opts)))
+(defn wrap-uglify-js-compressor [fun & {:as opts}]
+  (apply wrap-processor fun (uglify-js-compressor) (apply concat opts)))
 
 
