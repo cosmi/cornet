@@ -22,14 +22,29 @@
         (fun path)))))
 
 
+(defn wrap-ext-filter
+  "Will block paths not on the list"
+  [fun ^String ext]
+    (fn [^String path]
+      (when (.endsWith path ext)
+        (fun path))))
+
+(defn wrap-paths-filter-from-fn
+  "Will block paths not on the list"
+  [fun fltr]
+    (fn [path]
+      (when (contains? (fltr) path)
+        (fun path))))
+
+
 (defn wrap-preload
   [fun paths]
-  (doall (map fun paths))
+  (dorun (map fun paths))
   fun)
 
 
 
-(defn wrap-precompile
+(defn wrap-files-list
   "Will call all the specified paths, and will block any other than the ones in specified list"
   [fun paths]
   (-> fun
@@ -88,3 +103,8 @@
    loader
    processor
    (apply concat opts)))
+
+(defn compose-sources
+  ([source & sources]
+     (apply some-fn source sources))
+  ([source] source))
