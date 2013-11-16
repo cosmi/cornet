@@ -13,6 +13,8 @@ You can use assets from many configurable sources and compose transformations in
 ```
 or find it in [Clojars](https://clojars.org/cornet).
 
+Also check out [Scijors](http://github.com/cosmi/scijors) - a templating library.
+
 ## Features
 
 Currently it will help you with the following tasks:
@@ -20,7 +22,6 @@ Currently it will help you with the following tasks:
 - compilation of CoffeeScript,
 - minification of JavaScript (UglifyJS) and CSS (YUI Compressor).
 
-Also check out [Scijors](http://github.com/cosmi/scijors) - a templating library.
 Cornet works in two modes:
 - in dev mode it will recompile the assets every time the source changed. In case of LessCSS, it will also check the imported files!
 - in production mode, the compilation will happen on either server start or on the first load of given asset (your choice!).
