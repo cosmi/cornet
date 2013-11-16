@@ -7,7 +7,7 @@
                  [ring/ring-core "1.2.1"]
                  [org.marianoguerra/clj-rhino "0.2.1"]
                  [org.clojure/core.cache "0.6.3"]
-                 
+                 [compojure "1.1.6"]
                  [ro.isdc.wro4j/wro4j-extensions "1.7.1"
                   :exclusions
                   [
@@ -42,6 +42,5 @@
   {:dev {:dependencies [;[ring-mock "0.1.5"]
                         [ring "1.2.1"]
                         [ring-server "0.3.1"]
-                        [clj-http "0.4.1"]
-                        [compojure "1.1.6"]]}}
+                        [clj-http "0.4.1"]]}}
   )

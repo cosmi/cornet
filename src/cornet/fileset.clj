@@ -10,7 +10,7 @@
       (remove empty?)))
 
 (defn fileset-from-url-loader [url & {:keys [mode] :or {mode (get-cornet-mode)}}]
-  {:pre [url]}
+  (assert url (str "Fileset file not found."))
   (case mode
     :dev
     (let [src (atom {})]
