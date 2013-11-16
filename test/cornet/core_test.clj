@@ -7,8 +7,8 @@
   (let [loader (compiled-assets-loader "test-resources/"
                                        :from-filesystem true
                                        :mode :prod
-                                       :files-list "files.list"
-                                       :lesscss-list ["lesscss/bootstrap/bootstrap.less"])]
+                                       :fileset-file "files.list"
+                                       :lesscss-files ["lesscss/bootstrap/bootstrap.less"])]
     (is (loader "lesscss/bootstrap.css"))
     (is (-> (loader "lesscss/bootstrap.css") str (.endsWith ".css")))
     (is (-> (loader "lesscss/bootstrap/bootstrap.css") str (.endsWith ".css")))
