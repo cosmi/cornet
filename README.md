@@ -1,7 +1,5 @@
 # Cornet
 
-
-
 A simple implementation of assets pipeline compatibile with Ring and Compojure. It is kept in the spirit of Compojure. 
 You can use assets from many configurable sources and compose transformations in a nice, functional, middleware based way.
 
@@ -40,7 +38,7 @@ I wasn't happy with any other Clojure implementation of those features - in fact
 Those are based on Ruby's Sprockets library - which is a nice abstraction for an Object-Oriented, MVC based framework like Ruby on Rails,
 but in my opinion does not work well with composable, functional one like Compojure.
 
-First, simple, nameless library for my own projects was created.
+First, simple, nameless library for our in-house projects was created.
 Then, I tried to build a bigger framework, [Causeway](http://github.com/cosmi/causeway). It works nicely, but is big and bulky, and the asset pipeline is only a small part of it.
 Finally, all my experience with creating asset pipelines for Clojure has been put into Cornet. And I believe it is the ultimate thing (although not so many features are implemented yet).
 
@@ -166,9 +164,43 @@ Wrap the handler in `with-cornet-mode` from `cornet.mode` namespace. For example
 (static-assets-loader "public" :mode :dev)
 ```
 
-#### Hacking
+## FAQ
 
-There are a lot of useful undocumented functions in Cornet. Feel free to browse the source code!
+### "Why did you choose to group LESS and CoffeeScript compilation and resource minification in one middleware function?"
+
+For convenience's sake only! You can shape your middleware in any way you want. For example:
+
+```clojure
+(use '[cornet.processors lesscss coffeescript minifiers] 'cornet.loaders)
+
+(defroutes app-routes
+  (GET "/" [] "Hello World")
+  (wrap-url-response
+   (let [loader (resource-loader "/precompiled")]
+     (->
+       (some-fn (wrap-lesscss-processor loader :mode :dev)
+                (wrap-coffeescript-processor loader :mode :dev)
+                (resource-loader "/public"))
+       (cond-> (not devmode)
+         (->
+           (wrap-yui-css-compressor)
+           (wrap-uglify-js-compressor)))))))
+```
+
+### "How is the cache working?"
+
+Currently Cornet writes all transformed files as temporary files 
+(using java.io.File/createTempFile - it will be /tmp on most systems). 
+I am planning on adding in-memory processing and cache.
+
+### "Are you planning to add more compilers?"
+
+Yeah, we plan to have at least SASS implemented.
+Also we would like to have ClojureScript covered!
+
+### "I need a feature not yet implemented. Can I contribute?"
+
+Yes, please!
 
 ## License
 
