@@ -57,7 +57,7 @@ In your project.clj dependencies add:
 In your ns declaration add:
 
 ```clojure
-(:use cornet.core cornet.routes)
+(:use cornet.core cornet.route)
 ```
 
 Sample compojure handler:
